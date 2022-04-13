@@ -82,3 +82,7 @@ h1 {
   margin: auto;
   font-size: 300%;
 }
+
+div:focus {
+  outline: none;
+}
