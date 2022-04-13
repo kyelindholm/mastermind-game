@@ -26,10 +26,16 @@ hr {
 
 .square {
   display: inline-block;
-  border: 2px solid grey;
   min-width: 5vw;
   min-height: 5vw;
   margin: 1vw;
+  color: gainsboro;
+  text-align: center;
+  line-height: 5vw;
+  font-size: large;
+  font-weight: bold;
+  vertical-align: top;
+  user-select: none;
 }
 
 .numberInput {
@@ -43,11 +49,32 @@ hr {
   min-width: 4vw;
   margin: 3vh 1vh 0 1vh;
   text-align: center;
+  user-select: none;
 }
 
 .numberInput:hover {
   background-color: grey;
   cursor: pointer;
+}
+
+.submitGuess {
+  margin-top: 5vh;
+  background-color: #121212;
+  color: gainsboro;
+  border: 1px solid grey;
+  padding: 2vh;
+  border-radius: 25%;
+  min-width: 7vw;
+  min-height: 6vh;
+  text-align: center;
+  line-height: 6vh;
+  font-size: 2em;
+  user-select: none;
+}
+
+.submitGuess:hover {
+  cursor: pointer;
+  background-color: grey;
 }
 
 h1 {
