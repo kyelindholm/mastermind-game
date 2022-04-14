@@ -1,27 +1,16 @@
 const express = require("express");
-const PORT = process.env.PORT || 3001;
 const app = express();
-const axios = require('axios');
 const logger = require('./utils/logger');
+const config = require('./utils/config');
+const middleware = require('./utils/middleware');
+const randomNum = require('./controllers/randomNum');
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(middleware.corsHandler);
+app.use(middleware.requestLogger);
 
-app.get('/', async (req, res) => {
-  const randomNums = await axios.get('https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new');
-  const strArray = Array.from(randomNums.data.replace(/[\r\n]/gm, ''));
-  const numArray = strArray.map(str => Number(str));
+// fetches 4 random numbers from random.org, converts them to an integer array, and returns them in the response
+app.get('/randomnums', randomNum.fetchRandomNumbers);
 
-  if (randomNums.data) {
-    res.status(200).send(numArray);
-  } else {
-    res.status(500).send();
-  }
-});
-
-app.listen(PORT, () => {
-  logger.info(`Server listening on ${PORT}`);
+app.listen(config.PORT, () => {
+  logger.info(`Server listening on ${config.PORT}`);
 });

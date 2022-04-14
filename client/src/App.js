@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     const getRandomNumbers = async () => {
-      const numberSequence = await axios.get('http://localhost:3001/');
+      const numberSequence = await axios.get('http://localhost:3001/randomnums');
       setRandomSequence(numberSequence.data);
     }
 
