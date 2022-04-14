@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
 import GuessContainer from "./components/GuessContainer";
 import GuessInput from "./components/GuessInput";
+import {correctNumberCorrectIdx, correctNumberGuess} from './helpers/checkArrays';
 import axios from 'axios';
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
     setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
   }
 
-  const handleSubtractGuesses = () => {
+  const handleSubtractRemainingGuesses = () => {
     if (remainingGuesses <= 1) {
       alert('You lose :(');
       setCurrentGuess([]);
@@ -47,17 +48,23 @@ function App() {
 
   }
 
+
+
   const handleSubmitGuess = () => {
     console.log(randomSequence);
     if (currentGuess.join('') === randomSequence.join('')) {
       alert('You win! Play again?');
       setCurrentGuess([]);
       getRandomNumbers();
+    } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
+      console.log('You\'ve guessed a correct number in its correct place!');
+      handleSubtractRemainingGuesses();
+    } else if (correctNumberGuess(currentGuess, randomSequence)) {
+      console.log('You\'ve guessed at least one correct number!');
+      handleSubtractRemainingGuesses();
     } else {
-      for (let i = 0; i < currentGuess.length; i++) {
-
-      }
-      handleSubtractGuesses();
+      console.log('No correct numbers! Try again!');
+      handleSubtractRemainingGuesses();
     }
   }
 
