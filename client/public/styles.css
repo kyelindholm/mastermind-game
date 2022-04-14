@@ -15,7 +15,7 @@ hr {
 }
 
 .gameBoard {
-  margin-top: 10vh;
+  margin-top: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,6 +41,7 @@ hr {
 .numberInput {
   display: inline-block;
   border: 1px solid grey;
+  background-color: grey;
   color: gainsboro;
   font-weight: bold;
   border-radius: 25%;
@@ -53,7 +54,6 @@ hr {
 }
 
 .numberInput:hover {
-  background-color: grey;
   cursor: pointer;
 }
 
