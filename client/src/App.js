@@ -1,16 +1,27 @@
 import {useState, useEffect, useRef} from 'react';
 import GuessContainer from "./components/GuessContainer";
 import GuessInput from "./components/GuessInput";
+import axios from 'axios';
 
 function App() {
+  const [randomSequence, setRandomSequence] = useState([]);
   const [currentGuess, setCurrentGuess] = useState([]);
+  const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
   useEffect(() => {
-    targetRef.current.focus();
+    const getRandomNumbers = async () => {
+      const numberSequence = await axios.get('http://localhost:3001/');
+      setRandomSequence(numberSequence.data);
+    }
+
+    if (!didMountRef.current) {
+      targetRef.current.focus();
+      didMountRef.current = true;
+    } else {
+      getRandomNumbers();
+    }
   }, [])
-
-
 
   const handleChangeGuess = (guessNum) => {
     if (currentGuess.length < 4) {
@@ -36,6 +47,7 @@ function App() {
   return (
     <div tabIndex="5" ref={targetRef} onKeyDown={(e) => {handleKeyPress(e)}}>
       <h1>MASTERMIND</h1>
+      <h1>{randomSequence}</h1>
       <hr/>
       <div className="gameBoard">
         <GuessContainer currentGuess={currentGuess}/>
