@@ -2,6 +2,7 @@ import {useState, useEffect, useRef} from 'react';
 import GuessContainer from "./components/GuessContainer";
 import GuessInput from "./components/GuessInput";
 import GuessHistoryFeed from "./components/GuessHistoryFeed";
+import DifficultySelector from "./components/DifficultySelector";
 import {correctNumberCorrectIdx, correctNumberGuess} from './helpers/checkArrays';
 import axios from 'axios';
 
@@ -10,6 +11,7 @@ function App() {
   const [currentGuess, setCurrentGuess] = useState([]);
   const [remainingGuesses, setRemainingGuesses] = useState(10);
   const [guessHistory, setGuessHistory] = useState([]);
+  const [difficulty, setDifficulty] = useState('easy');
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -35,6 +37,10 @@ function App() {
 
   const handleBackspace = () => {
     setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
+  }
+
+  const handleChangeDifficulty = (event) => {
+    setDifficulty(event.target.value);
   }
 
   const resetGame = () => {
@@ -85,6 +91,7 @@ function App() {
   return (
     <div tabIndex="5" ref={targetRef} onKeyDown={(e) => {handleKeyPress(e)}}>
       <h1>MASTERMIND</h1>
+      <DifficultySelector handleChangeDifficulty={handleChangeDifficulty}/>
       <h2>{remainingGuesses} guesses left!</h2>
       <hr/>
       <GuessHistoryFeed guessHistory={guessHistory}/>
