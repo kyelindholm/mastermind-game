@@ -40,6 +40,13 @@ function App() {
   }
 
   const handleChangeDifficulty = (event) => {
+    resetGame();
+    if (event.target.value === "hard") {
+      setRemainingGuesses(5);
+    }
+    if (event.target.value === "easy" || event.target.value === "medium") {
+      setRemainingGuesses(10);
+    }
     setDifficulty(event.target.value);
   }
 
@@ -61,7 +68,23 @@ function App() {
 
   }
 
-  const handleSubmitGuess = () => {
+  const handleCheckGuessEasy = () => {
+    if (currentGuess.join('') === randomSequence.join('')) {
+      alert('You win! Play again?');
+      resetGame();
+    } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: `The number ${correctNumberCorrectIdx(currentGuess, randomSequence)} is in its correct place!`}]);
+      handleSubtractRemainingGuesses();
+    } else if (correctNumberGuess(currentGuess, randomSequence)) {
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: `The number ${correctNumberGuess(currentGuess, randomSequence)} is correct!`}]);
+      handleSubtractRemainingGuesses();
+    } else {
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'No correct numbers! Try again!'}]);
+      handleSubtractRemainingGuesses();
+    }
+  }
+
+  const handleCheckGuessHard = () => {
     if (currentGuess.join('') === randomSequence.join('')) {
       alert('You win! Play again?');
       resetGame();
@@ -74,6 +97,14 @@ function App() {
     } else {
       setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'No correct numbers! Try again!'}]);
       handleSubtractRemainingGuesses();
+    }
+  }
+
+  const handleSubmitGuess = () => {
+    if (difficulty === "easy") {
+      handleCheckGuessEasy();
+    } else {
+      handleCheckGuessHard();
     }
   }
 
