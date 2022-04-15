@@ -57,54 +57,40 @@ function App() {
     getRandomNumbers();
   }
 
-  const handleSubtractRemainingGuesses = () => {
+  const handleSubtractRemainingGuesses = (feedbackMessage) => {
     if (remainingGuesses <= 1) {
       alert('You lose! Then number was ' + randomSequence.join('') + '!');
       resetGame();
     } else {
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: feedbackMessage}]);
       setRemainingGuesses(remainingGuesses - 1);
       setCurrentGuess([]);
-    }
-
-  }
-
-  const handleCheckGuessEasy = () => {
-    if (currentGuess.join('') === randomSequence.join('')) {
-      alert('You win! Play again?');
-      resetGame();
-    } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
-      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: `The number ${correctNumberCorrectIdx(currentGuess, randomSequence)} is in its correct place!`}]);
-      handleSubtractRemainingGuesses();
-    } else if (correctNumberGuess(currentGuess, randomSequence)) {
-      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: `The number ${correctNumberGuess(currentGuess, randomSequence)} is correct!`}]);
-      handleSubtractRemainingGuesses();
-    } else {
-      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'No correct numbers! Try again!'}]);
-      handleSubtractRemainingGuesses();
-    }
-  }
-
-  const handleCheckGuessHard = () => {
-    if (currentGuess.join('') === randomSequence.join('')) {
-      alert('You win! Play again?');
-      resetGame();
-    } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
-      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'You\'ve guessed a correct number in its correct place!'}]);
-      handleSubtractRemainingGuesses();
-    } else if (correctNumberGuess(currentGuess, randomSequence)) {
-      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'You\'ve guessed at least one correct number!'}]);
-      handleSubtractRemainingGuesses();
-    } else {
-      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'No correct numbers! Try again!'}]);
-      handleSubtractRemainingGuesses();
     }
   }
 
   const handleSubmitGuess = () => {
     if (difficulty === "easy") {
-      handleCheckGuessEasy();
+      if (currentGuess.join('') === randomSequence.join('')) {
+        alert('You win! Play again?');
+        resetGame();
+      } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
+        handleSubtractRemainingGuesses(`The number ${correctNumberCorrectIdx(currentGuess, randomSequence)} is in its correct place!`);
+      } else if (correctNumberGuess(currentGuess, randomSequence)) {
+        handleSubtractRemainingGuesses(`The number ${correctNumberGuess(currentGuess, randomSequence)} is correct!`);
+      } else {
+        handleSubtractRemainingGuesses('No correct numbers! Try again!');
+      }
     } else {
-      handleCheckGuessHard();
+      if (currentGuess.join('') === randomSequence.join('')) {
+        alert('You win! Play again?');
+        resetGame();
+      } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
+        handleSubtractRemainingGuesses('You\'ve guessed a correct number in its correct place!');
+      } else if (correctNumberGuess(currentGuess, randomSequence)) {
+        handleSubtractRemainingGuesses('You\'ve guessed at least one correct number!');
+      } else {
+        handleSubtractRemainingGuesses('No correct numbers! Try again!');
+      }
     }
   }
 
