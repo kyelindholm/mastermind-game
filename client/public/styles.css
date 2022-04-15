@@ -20,8 +20,25 @@ hr {
   color: gainsboro;
 }
 
+.guessHistory {
+  color: gainsboro;
+  overflow-y: scroll;
+  height: 25vh;
+  width: fit-content;
+  margin: 10vh auto 0 auto;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.historyContainer {
+  border: 1px solid gainsboro;
+  padding: 1vw;
+}
+
 .gameBoard {
-  margin-top: 30vh;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

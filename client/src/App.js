@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
 import GuessContainer from "./components/GuessContainer";
 import GuessInput from "./components/GuessInput";
+import GuessHistoryFeed from "./components/GuessHistoryFeed";
 import {correctNumberCorrectIdx, correctNumberGuess} from './helpers/checkArrays';
 import axios from 'axios';
 
@@ -8,6 +9,7 @@ function App() {
   const [randomSequence, setRandomSequence] = useState([]);
   const [currentGuess, setCurrentGuess] = useState([]);
   const [remainingGuesses, setRemainingGuesses] = useState(10);
+  const [guessHistory, setGuessHistory] = useState([]);
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -35,12 +37,17 @@ function App() {
     setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
   }
 
+  const resetGame = () => {
+    setCurrentGuess([]);
+    setRemainingGuesses(10);
+    setGuessHistory([]);
+    getRandomNumbers();
+  }
+
   const handleSubtractRemainingGuesses = () => {
     if (remainingGuesses <= 1) {
-      alert('You lose :(');
-      setCurrentGuess([]);
-      setRemainingGuesses(10);
-      getRandomNumbers();
+      alert('You lose! Then number was ' + randomSequence.join('') + '!');
+      resetGame();
     } else {
       setRemainingGuesses(remainingGuesses - 1);
       setCurrentGuess([]);
@@ -48,22 +55,18 @@ function App() {
 
   }
 
-
-
   const handleSubmitGuess = () => {
-    console.log(randomSequence);
     if (currentGuess.join('') === randomSequence.join('')) {
       alert('You win! Play again?');
-      setCurrentGuess([]);
-      getRandomNumbers();
+      resetGame();
     } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
-      console.log('You\'ve guessed a correct number in its correct place!');
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'You\'ve guessed a correct number in its correct place!'}]);
       handleSubtractRemainingGuesses();
     } else if (correctNumberGuess(currentGuess, randomSequence)) {
-      console.log('You\'ve guessed at least one correct number!');
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'You\'ve guessed at least one correct number!'}]);
       handleSubtractRemainingGuesses();
     } else {
-      console.log('No correct numbers! Try again!');
+      setGuessHistory([...guessHistory, { guess: currentGuess, feedbackMessage: 'No correct numbers! Try again!'}]);
       handleSubtractRemainingGuesses();
     }
   }
@@ -84,6 +87,7 @@ function App() {
       <h1>MASTERMIND</h1>
       <h2>{remainingGuesses} guesses left!</h2>
       <hr/>
+      <GuessHistoryFeed guessHistory={guessHistory}/>
       <div className="gameBoard">
         <GuessContainer currentGuess={currentGuess}/>
         <GuessInput handleChangeGuess={handleChangeGuess} handleBackspace={handleBackspace}/>
