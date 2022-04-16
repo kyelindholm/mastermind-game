@@ -113,3 +113,26 @@ hr {
 div:focus {
   outline: none;
 }
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2% 2% 2%;
+  border: 1px dashed gainsboro;
+  border-radius: 5%;
+  font-weight: bold;
+  max-width: fit-content;
+  margin: 1vh auto auto auto;
+}
+
+.closeForm {
+  color: gainsboro;
+  font-weight: bold;
+  width: fit-content;
+  margin-left: 95%;
+}
+
+.closeForm:hover {
+  cursor: pointer;
+}

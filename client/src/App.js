@@ -13,6 +13,7 @@ const App = () => {
   const [remainingGuesses, setRemainingGuesses] = useState(10);
   const [guessHistory, setGuessHistory] = useState([]);
   const [difficulty, setDifficulty] = useState('easy');
+  const [submitModalVisible, setSubmitModalVisible] = useState(false);
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -55,6 +56,7 @@ const App = () => {
     setCurrentGuess([]);
     setRemainingGuesses(10);
     setGuessHistory([]);
+    setSubmitModalVisible(false);
     getRandomNumbers();
   }
 
@@ -70,10 +72,10 @@ const App = () => {
   }
 
   const handleSubmitGuess = () => {
+    console.log(randomSequence);
     if (difficulty === "easy") {
       if (currentGuess.join('') === randomSequence.join('')) {
-        alert('You win! Play again?');
-        resetGame();
+        setSubmitModalVisible(true);
       } else if (correctNumberCorrectIdx(currentGuess, randomSequence) !== false) {
         handleSubtractRemainingGuesses(`The number ${correctNumberCorrectIdx(currentGuess, randomSequence)} is in its correct place!`);
       } else if (correctNumberGuess(currentGuess, randomSequence) !== false) {
@@ -83,8 +85,7 @@ const App = () => {
       }
     } else {
       if (currentGuess.join('') === randomSequence.join('')) {
-        alert('You win! Play again?');
-        resetGame();
+        setSubmitModalVisible(true);
       } else if (correctNumberCorrectIdx(currentGuess, randomSequence) !== false) {
         handleSubtractRemainingGuesses('You\'ve guessed a correct number in its correct place!');
       } else if (correctNumberGuess(currentGuess, randomSequence) !== false) {
@@ -105,12 +106,23 @@ const App = () => {
     }
   }
 
+  const handleSubmitScore = async (username) => {
+    axios.post(`http://localhost:3001/scoreboard`, {username: username, score: 1});
+    resetGame();
+  }
+
 
   return (
-    <div tabIndex="5" ref={targetRef} onKeyDown={(e) => {handleKeyPress(e)}}>
-      <h1>MASTERMIND</h1>
-      <DifficultySelector handleChangeDifficulty={handleChangeDifficulty}/>
-      <h2>{remainingGuesses} guesses left!</h2>
+    <div tabIndex="5" ref={targetRef} onKeyDown={submitModalVisible ? () => {}: (e) => {handleKeyPress(e)}}>
+      {submitModalVisible ?
+        <SubmitScoreForm closeForm={resetGame} handleSubmitScore={handleSubmitScore}/>
+        :
+        <div>
+          <h1>MASTERMIND</h1>
+          <DifficultySelector handleChangeDifficulty={handleChangeDifficulty}/>
+          <h2>{remainingGuesses} guesses left!</h2>
+        </div>
+      }
       <hr/>
       <GuessHistoryFeed guessHistory={guessHistory}/>
       <div className="gameBoard">

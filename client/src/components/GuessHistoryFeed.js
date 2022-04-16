@@ -2,9 +2,9 @@ const GuessHistoryFeed = ({guessHistory}) => {
   return (
     <div className="guessHistory">
       {
-        guessHistory.map((guessObject) => {
+        guessHistory.map((guessObject, i) => {
           return (
-            <div className="historyContainer">
+            <div className="historyContainer" key={i}>
               <p>
                 Your guess: {guessObject.guess}
               </p>
