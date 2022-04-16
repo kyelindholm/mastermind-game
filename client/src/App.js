@@ -3,10 +3,11 @@ import GuessContainer from "./components/GuessContainer";
 import GuessInput from "./components/GuessInput";
 import GuessHistoryFeed from "./components/GuessHistoryFeed";
 import DifficultySelector from "./components/DifficultySelector";
+import SubmitScoreForm from "./components/SubmitScoreForm";
 import {correctNumberCorrectIdx, correctNumberGuess} from './helpers/checkArrays';
 import axios from 'axios';
 
-function App() {
+const App = () => {
   const [randomSequence, setRandomSequence] = useState([]);
   const [currentGuess, setCurrentGuess] = useState([]);
   const [remainingGuesses, setRemainingGuesses] = useState(10);
@@ -73,10 +74,10 @@ function App() {
       if (currentGuess.join('') === randomSequence.join('')) {
         alert('You win! Play again?');
         resetGame();
-      } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
+      } else if (correctNumberCorrectIdx(currentGuess, randomSequence) !== false) {
         handleSubtractRemainingGuesses(`The number ${correctNumberCorrectIdx(currentGuess, randomSequence)} is in its correct place!`);
-      } else if (correctNumberGuess(currentGuess, randomSequence)) {
-        handleSubtractRemainingGuesses(`The number ${correctNumberGuess(currentGuess, randomSequence)} is correct!`);
+      } else if (correctNumberGuess(currentGuess, randomSequence) !== false) {
+        handleSubtractRemainingGuesses(`The number ${correctNumberGuess(currentGuess, randomSequence)} is in the hidden sequence, but in a different position!`);
       } else {
         handleSubtractRemainingGuesses('No correct numbers! Try again!');
       }
@@ -84,9 +85,9 @@ function App() {
       if (currentGuess.join('') === randomSequence.join('')) {
         alert('You win! Play again?');
         resetGame();
-      } else if (correctNumberCorrectIdx(currentGuess, randomSequence)) {
+      } else if (correctNumberCorrectIdx(currentGuess, randomSequence) !== false) {
         handleSubtractRemainingGuesses('You\'ve guessed a correct number in its correct place!');
-      } else if (correctNumberGuess(currentGuess, randomSequence)) {
+      } else if (correctNumberGuess(currentGuess, randomSequence) !== false) {
         handleSubtractRemainingGuesses('You\'ve guessed at least one correct number!');
       } else {
         handleSubtractRemainingGuesses('No correct numbers! Try again!');
