@@ -20,6 +20,10 @@ hr {
   color: gainsboro;
 }
 
+.container {
+  text-align: center;
+}
+
 .selector {
   text-align: center;
   margin: 1vh 0 1vh 0;
@@ -32,11 +36,14 @@ hr {
 }
 
 .guessHistory {
+  display: inline-block;
+  position: relative;
   color: gainsboro;
   overflow-y: scroll;
   height: 25vh;
   width: fit-content;
   margin: 5vh auto 5vh auto;
+  z-index: 500;
 }
 ::-webkit-scrollbar {
   width: 0;
@@ -112,6 +119,18 @@ hr {
 
 div:focus {
   outline: none;
+}
+
+.scoreBoard {
+  color: gainsboro;
+  float: left;
+  position: absolute;
+}
+
+.scoreItem {
+  border: 1px solid gainsboro;
+  padding: 1vh;
+  margin: 1vh;
 }
 
 .modalForm {

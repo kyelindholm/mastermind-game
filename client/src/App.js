@@ -4,6 +4,7 @@ import GuessInput from "./components/GuessInput";
 import GuessHistoryFeed from "./components/GuessHistoryFeed";
 import DifficultySelector from "./components/DifficultySelector";
 import SubmitScoreForm from "./components/SubmitScoreForm";
+import ScoreBoard from "./components/ScoreBoard";
 import {
   correctNumberCorrectIdx,
   correctNumberGuess,
@@ -19,6 +20,7 @@ const App = () => {
   const [difficulty, setDifficulty] = useState("easy");
   const [submitModalVisible, setSubmitModalVisible] = useState(false);
   const [score, setScore] = useState(0);
+  const [topScores, setTopScores] = useState([]);
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -27,9 +29,17 @@ const App = () => {
       targetRef.current.focus();
       didMountRef.current = true;
     } else {
+      getScores();
       getRandomNumbers();
     }
   }, []);
+
+
+  const getScores = async () => {
+    const newTopScores = await axios.get("http://localhost:3001/scoreboard");
+    newTopScores.data.sort((a, b) => b.score - a.score);
+    setTopScores(newTopScores.data);
+  }
 
   const getRandomNumbers = async () => {
     const numberSequence = await axios.get("http://localhost:3001/randomnums");
@@ -67,6 +77,7 @@ const App = () => {
     setRemainingGuesses(10);
     setGuessHistory([]);
     setSubmitModalVisible(false);
+    getScores();
     getRandomNumbers();
   };
 
@@ -154,6 +165,7 @@ const App = () => {
 
   return (
     <div
+    className="container"
       tabIndex="5"
       ref={targetRef}
       onKeyDown={
@@ -178,6 +190,7 @@ const App = () => {
         </div>
       )}
       <hr />
+      <ScoreBoard topScores={topScores}/>
       <GuessHistoryFeed guessHistory={guessHistory} />
       <div className="gameBoard">
         <GuessContainer currentGuess={currentGuess} />

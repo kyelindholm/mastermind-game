@@ -3,8 +3,12 @@ const logger = require ('../utils/logger');
 
 const saveScoreQuery = async(scoreObject) => {
   const dbEntry = await client.query(`INSERT INTO scores (username, score, difficulty) VALUES ('${scoreObject.username}', '${scoreObject.score}', '${scoreObject.difficulty}')`);
-
   return dbEntry;
 }
 
-module.exports = { saveScoreQuery };
+const getScoresQuery = async () => {
+  const scores = await client.query(`SELECT * FROM scores LIMIT 10`);
+  return scores;
+}
+
+module.exports = { saveScoreQuery, getScoresQuery };
