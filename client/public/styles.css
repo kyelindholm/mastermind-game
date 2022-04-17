@@ -119,7 +119,7 @@ div:focus {
   flex-direction: column;
   justify-content: center;
   padding: 0 2% 2% 2%;
-  border: 1px dashed gainsboro;
+  border: 1px solid gainsboro;
   border-radius: 5%;
   font-weight: bold;
   max-width: fit-content;

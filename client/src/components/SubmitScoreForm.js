@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const SubmitScoreForm = ({closeForm, handleSubmitScore}) => {
+const SubmitScoreForm = ({closeForm, handleSubmitScore, score}) => {
   const [username, setUsername] = useState('');
 
   return (
@@ -10,7 +10,7 @@ const SubmitScoreForm = ({closeForm, handleSubmitScore}) => {
     }}>
       <p className="closeForm" onClick={closeForm}>x</p>
       <h2>YOU WIN!</h2>
-      <h2>SUBMIT YOUR SCORE!</h2>
+      <h2>SUBMIT YOUR SCORE: {score}!</h2>
       <input type="text" placeholder="Username..." required onChange={(e) => {setUsername(e.target.value)}}/>
       <input type="submit"/>
     </form>
