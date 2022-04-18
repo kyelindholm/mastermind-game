@@ -168,3 +168,27 @@ div:focus {
 .closeForm:hover {
   cursor: pointer;
 }
+
+.loginForm {
+  display: flex;
+  color: gainsboro;
+  font-weight: bold;
+  flex-direction: column;
+  max-width: 25%;
+  margin: 5vh auto 0 auto;
+  padding: 2vh;
+}
+
+.loginComponent {
+  margin-top: 2vh;
+}
+
+.toggleForm {
+  width: fit-content;
+  margin: auto;
+  text-decoration: underline;
+}
+
+.toggleForm:hover {
+  cursor: pointer;
+}

@@ -5,6 +5,7 @@ import GuessHistoryFeed from "./components/GuessHistoryFeed";
 import DifficultySelector from "./components/DifficultySelector";
 import SubmitScoreForm from "./components/SubmitScoreForm";
 import ScoreBoard from "./components/ScoreBoard";
+import LoginForm from "./components/LoginForm"
 import {
   correctNumberCorrectIdx,
   correctNumberGuess,
@@ -22,6 +23,7 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [scoreBoardVisible, setScoreBoardVisible] = useState(false);
   const [topScores, setTopScores] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -164,6 +166,22 @@ const App = () => {
     resetGame();
   };
 
+  const handleCreateAccount = async (event, accountDetails) => {
+    event.preventDefault();
+    const requestResponse = await axios.post('http://localhost:3001/signup', accountDetails);
+    console.log(requestResponse);
+  }
+
+  const handleLogin = async (event, loginDetails) => {
+    event.preventDefault();
+    const requestResponse = await axios.post('http://localhost:3001/login', loginDetails);
+    if (requestResponse.status === 200) {
+      setIsLoggedIn(true);
+      targetRef.current.focus();
+      resetGame();
+    }
+  }
+
   return (
     <div
     className="container"
@@ -195,26 +213,33 @@ const App = () => {
         <label htmlFor="scorboardCheck">{scoreBoardVisible ? "Hide" : "Show"} Scoreboard</label>
       </div>
       <hr />
-      <ScoreBoard topScores={topScores} visible={scoreBoardVisible}/>
-      <GuessHistoryFeed guessHistory={guessHistory} />
-      <div className="gameBoard">
-        <GuessContainer currentGuess={currentGuess} />
-        <GuessInput
-          handleChangeGuess={handleChangeGuess}
-          handleBackspace={handleBackspace}
-        />
-        <div
-          className="submitGuess"
-          style={
-            currentGuess.length === 4
-              ? { visibility: "visible" }
-              : { visibility: "hidden" }
-          }
-          onClick={handleSubmitGuess}
-        >
-          GUESS
+      {isLoggedIn ?  (
+      <div>
+        <ScoreBoard topScores={topScores} visible={scoreBoardVisible}/>
+        <GuessHistoryFeed guessHistory={guessHistory} />
+        <div className="gameBoard">
+          <GuessContainer currentGuess={currentGuess} />
+          <GuessInput
+            handleChangeGuess={handleChangeGuess}
+            handleBackspace={handleBackspace}
+          />
+          <div
+            className="submitGuess"
+            style={
+              currentGuess.length === 4
+                ? { visibility: "visible" }
+                : { visibility: "hidden" }
+            }
+            onClick={handleSubmitGuess}
+          >
+            GUESS
+          </div>
         </div>
       </div>
+      ) : (
+        <LoginForm handleLogin={handleLogin} handleCreateAccount={handleCreateAccount}/>
+      )}
+
     </div>
   );
 };
