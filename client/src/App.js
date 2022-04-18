@@ -24,6 +24,7 @@ const App = () => {
   const [scoreBoardVisible, setScoreBoardVisible] = useState(false);
   const [topScores, setTopScores] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -168,8 +169,12 @@ const App = () => {
 
   const handleCreateAccount = async (event, accountDetails) => {
     event.preventDefault();
-    const requestResponse = await axios.post('http://localhost:3001/signup', accountDetails);
-    console.log(requestResponse);
+    try {
+      await axios.post('http://localhost:3001/signup', accountDetails);
+      setStatusMessage('Account created successfully!');
+    } catch (err) {
+      setStatusMessage('Error: User with that username already exists!');
+    }
   }
 
   const handleLogin = async (event, loginDetails) => {
@@ -188,7 +193,7 @@ const App = () => {
       tabIndex="5"
       ref={targetRef}
       onKeyDown={
-        submitModalVisible
+        submitModalVisible || !isLoggedIn
           ? () => {}
           : (e) => {
               handleKeyPress(e);
@@ -237,7 +242,7 @@ const App = () => {
         </div>
       </div>
       ) : (
-        <LoginForm handleLogin={handleLogin} handleCreateAccount={handleCreateAccount}/>
+        <LoginForm handleLogin={handleLogin} handleCreateAccount={handleCreateAccount} statusMessage={statusMessage}/>
       )}
 
     </div>
