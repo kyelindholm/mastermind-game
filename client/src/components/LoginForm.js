@@ -11,9 +11,9 @@ const LoginForm = ({handleLogin, handleCreateAccount, statusMessage}) => {
       <h2>{displayLogin ? "SIGN IN" : "CREATE ACCOUNT"}</h2>
       <div className="toggleForm" onClick={() => {toggleDisplayLogin(!displayLogin)}}>{displayLogin ? "I need to make an account!" : "I already have an account!" }</div>
       <label htmlFor="username" className="loginComponent">Username:</label>
-      <input type="text" name="username" onChange={(e) => {setUsername(e.target.value)}}/>
+      <input type="text" name="username" onChange={(e) => {setUsername(e.target.value)}} required/>
       <label htmlFor="password" className="loginComponent">Password:</label>
-      <input type="password" name="password" onChange={(e) => {setPassword(e.target.value)}}/>
+      <input type="password" name="password" onChange={(e) => {setPassword(e.target.value)}} required/>
       <input type="submit" value={displayLogin ? "Login" : "Create Account"} className="loginComponent"/>
   </form>
   )

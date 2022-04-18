@@ -170,8 +170,9 @@ const App = () => {
   const handleCreateAccount = async (event, accountDetails) => {
     event.preventDefault();
     try {
-      await axios.post('http://localhost:3001/signup', accountDetails);
-      setStatusMessage('Account created successfully!');
+      const response = await axios.post('http://localhost:3001/signup', accountDetails);
+      console.log(response);
+      setStatusMessage(response.data);
     } catch (err) {
       setStatusMessage('Error: User with that username already exists!');
     }
@@ -179,11 +180,13 @@ const App = () => {
 
   const handleLogin = async (event, loginDetails) => {
     event.preventDefault();
-    const requestResponse = await axios.post('http://localhost:3001/login', loginDetails);
-    if (requestResponse.status === 200) {
+    try {
+      await axios.post('http://localhost:3001/login', loginDetails);
       setIsLoggedIn(true);
       targetRef.current.focus();
       resetGame();
+    } catch (err) {
+      setStatusMessage(err.response.data);
     }
   }
 
