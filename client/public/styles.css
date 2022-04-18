@@ -16,12 +16,19 @@ h1 {
   font-size: 300%;
 }
 
-hr {
+hr, label {
   color: gainsboro;
 }
 
 .container {
   text-align: center;
+}
+
+.header {
+  display: inline-block;
+  position: relative;
+  width: fit-content;
+  z-index: 500;
 }
 
 .selector {
@@ -33,6 +40,12 @@ hr {
   color: gainsboro;
   font-weight: bold;
   margin-right: 1vw;
+}
+
+.showScoreBoard {
+  float: left;
+  position: absolute;
+  margin-top: -2vh;
 }
 
 .guessHistory {

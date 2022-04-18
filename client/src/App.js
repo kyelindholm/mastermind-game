@@ -20,6 +20,7 @@ const App = () => {
   const [difficulty, setDifficulty] = useState("easy");
   const [submitModalVisible, setSubmitModalVisible] = useState(false);
   const [score, setScore] = useState(0);
+  const [scoreBoardVisible, setScoreBoardVisible] = useState(false);
   const [topScores, setTopScores] = useState([]);
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
@@ -183,14 +184,18 @@ const App = () => {
           score={score}
         />
       ) : (
-        <div>
+        <div className="header">
           <h1>MASTERMIND</h1>
           <DifficultySelector handleChangeDifficulty={handleChangeDifficulty} />
-          <h2>{remainingGuesses} guesses left!</h2>
+          <h2 style={{display: "inline-block"}}>{remainingGuesses} guesses left!</h2>
         </div>
       )}
+      <div className="showScoreBoard">
+        <input type="checkbox" name="scorboardCheck" checked={scoreBoardVisible} onChange={() => {setScoreBoardVisible(!scoreBoardVisible)}}/>
+        <label htmlFor="scorboardCheck">{scoreBoardVisible ? "Hide" : "Show"} Scoreboard</label>
+      </div>
       <hr />
-      <ScoreBoard topScores={topScores}/>
+      <ScoreBoard topScores={topScores} visible={scoreBoardVisible}/>
       <GuessHistoryFeed guessHistory={guessHistory} />
       <div className="gameBoard">
         <GuessContainer currentGuess={currentGuess} />
