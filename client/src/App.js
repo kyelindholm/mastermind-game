@@ -79,6 +79,7 @@ const App = () => {
   };
 
   const resetGame = () => {
+    getScores();
     setCurrentGuess([]);
     setScore(0);
     setDifficulty('easy');
@@ -86,7 +87,6 @@ const App = () => {
     setRemainingGuesses(10);
     setGuessHistory([]);
     setSubmitModalVisible(false);
-    getScores();
     getRandomNumbers();
   };
 
@@ -163,8 +163,8 @@ const App = () => {
     }
   };
 
-  const handleSubmitScore = () => {
-    axios.post(`http://localhost:3001/scoreboard`, {
+  const handleSubmitScore = async () => {
+    await axios.post(`http://localhost:3001/scoreboard`, {
       username: username,
       score: score,
       difficulty: difficulty,
