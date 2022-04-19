@@ -136,7 +136,7 @@ div:focus {
 
 .scoreBoard {
   color: gainsboro;
-  float: left;
+  left: 2vw;
   position: absolute;
 }
 
@@ -196,4 +196,16 @@ div:focus {
 .statusMessage {
   color: gainsboro;
   margin-bottom: 3vh;
+}
+
+.logout {
+  color: gainsboro;
+  font-weight: bold;
+  position: absolute;
+  right: 2vw;
+  margin-top: -2vh;
+}
+
+.logout:hover {
+  cursor: pointer;
 }

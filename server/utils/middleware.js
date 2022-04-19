@@ -1,4 +1,5 @@
 const logger = require('./logger');
+const secret = require('../../config');
 
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)

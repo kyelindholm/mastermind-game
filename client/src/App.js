@@ -6,11 +6,15 @@ import DifficultySelector from "./components/DifficultySelector";
 import SubmitScoreForm from "./components/SubmitScoreForm";
 import ScoreBoard from "./components/ScoreBoard";
 import LoginForm from "./components/LoginForm"
+import Logout from "./components/Logout";
 import {
   correctNumberCorrectIdx,
   correctNumberGuess,
 } from "./helpers/checkArrays";
 import axios from "axios";
+
+
+
 
 const App = () => {
   const [randomSequence, setRandomSequence] = useState([]);
@@ -23,7 +27,8 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [scoreBoardVisible, setScoreBoardVisible] = useState(false);
   const [topScores, setTopScores] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.loggedInUser));
+  const [username, setUsername] = useState(localStorage.loggedInUser);
   const [statusMessage, setStatusMessage] = useState('');
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
@@ -158,7 +163,7 @@ const App = () => {
     }
   };
 
-  const handleSubmitScore = async (username) => {
+  const handleSubmitScore = () => {
     axios.post(`http://localhost:3001/scoreboard`, {
       username: username,
       score: score,
@@ -182,12 +187,21 @@ const App = () => {
     event.preventDefault();
     try {
       await axios.post('http://localhost:3001/login', loginDetails);
+      localStorage.loggedInUser = loginDetails.username;
+      setUsername(loginDetails.username);
       setIsLoggedIn(true);
       targetRef.current.focus();
       resetGame();
     } catch (err) {
       setStatusMessage(err.response.data);
     }
+  }
+
+  const handleLogout = () => {
+    resetGame();
+    localStorage.clear();
+    setIsLoggedIn(false);
+    setUsername('');
   }
 
   return (
@@ -218,8 +232,9 @@ const App = () => {
       )}
       <div className="showScoreBoard">
         <input type="checkbox" name="scorboardCheck" checked={scoreBoardVisible} onChange={() => {setScoreBoardVisible(!scoreBoardVisible)}}/>
-        <label htmlFor="scorboardCheck">{scoreBoardVisible ? "Hide" : "Show"} Scoreboard</label>
+        <label htmlFor="scorboardCheck">Show Scoreboard</label>
       </div>
+      <Logout visibility={username ? "visible" : "hidden"} username={username} handleLogout={handleLogout}/>
       <hr />
       {isLoggedIn ?  (
       <div>
