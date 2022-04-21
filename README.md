@@ -64,15 +64,22 @@ While I wasn't very familiar with the Mastermind game before this project, its r
 
 ## Preview:
 
+Mastermind's account creation doesn't allow accounts with duplicate usernames - "guest" is also a reserved word and cannot be uses as a username!
 <p align="center">
   <img src="https://i.imgur.com/FImclCe.png" alt="Mastermind homepage" />
 </p>
+
+Mastermind's "easy" mode gives you comprehensive feedback after each guess - it'll tell you *which* number you've guessed correctly.
 <p align="center">
   <img src="https://i.imgur.com/yShkUoL.png" alt="Mastermind easy hint" />
 </p>
+
+Mastermind's "hard" mode makes hints less specific and gives the user less chances to guess! Check out the best players on the scoreboard!
 <p align="center">
   <img src="https://i.imgur.com/tuIjGLP.png" alt="Mastermind hard hint + scoreboard" />
 </p>
+
+Want to show off how good you are at Mastermind? Submit your score once you've won the game!
 <p align="center">
   <img src="https://i.imgur.com/fbRjYgh.png" alt="Mastermind submit score" />
 </p>
