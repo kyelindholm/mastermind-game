@@ -214,6 +214,7 @@ const App = () => {
     resetGame();
     localStorage.clear();
     setIsLoggedIn(false);
+    setStatusMessage('')
     setUsername('');
   }
 

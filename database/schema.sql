@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS scores (
   id SERIAL PRIMARY KEY,
   username TEXT,
   score INTEGER,
-  difficulty TEXT
+  difficulty TEXT,
+  scoredate DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 DROP TABLE IF EXISTS users CASCADE;
