@@ -89,8 +89,8 @@ While I wasn't very familiar with the Mastermind game before this project, its r
     - To connect to the deployed database and view others' scores, your config.js file should look like:
     ```
     module.exports.host="mastermind-db.cq8styafifva.us-east-1.rds.amazonaws.com";
-    module.exports.user="kyelindholm"
-    module.exports.password="password123"
+    module.exports.user="kyelindholm";
+    module.exports.password="password123";
     ```
 
 3) Once PostgreSQL is installed and your config file is set up, run `npm run create-database` from the root directory. As the script's name suggests, this executes the `schema.sql` file within the database directory and will automatically create the database and tables needed to run Mastermind.
