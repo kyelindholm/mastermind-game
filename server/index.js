@@ -4,7 +4,7 @@ const logger = require('./utils/logger');
 const config = require('./utils/config');
 const middleware = require('./utils/middleware');
 const { fetchRandomNumbers } = require('./controllers/randomNum');
-const { saveScores, fetchScores } = require('./controllers/scoresDB');
+const { saveScores, fetchScores } = require('./controllers/scoresDb');
 const { signup, login } = require('./controllers/userAccounts')
 
 app.use(middleware.corsHandler);

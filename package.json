@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"node server\" \"live-server client/build\"",
     "start-dev": "concurrently \"nodemon server\" \"npm run start --prefix client\"",
-    "create-database": "psql postgres -f database/schema.sql"
+    "create-database": "psql postgres -f database/schema.sql",
+    "build": "npm run build --prefix client"
   },
   "repository": {
     "type": "git",
