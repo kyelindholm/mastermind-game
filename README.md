@@ -88,4 +88,4 @@ While I wasn't very familiar with the Mastermind game before this project, its r
 
 3) Once PostgreSQL is installed and your config file is set up, run `npm run create-database` from the root directory. As the script's name suggests, this executes the `schema.sql` file within the database directory and will automatically create the database and tables needed to run Mastermind.
 
-4) Within the root directory, execute `npm run start`. This will start the application and automatically open your browser, directed to `localhost:3000`, so that you can play Mastermind!
+4) To create a production-ready build, navigate to the client directory and run `npm run build`. Navigate back to the root directory (with `cd ..`) and run `npm run start`. Your client and server will start, andd you should be ready to play Mastermind!

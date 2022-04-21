@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"node server\" \"npm run start --prefix client\"",
+    "start": "concurrently \"node server\" \"live-server client/build\"",
     "start-dev": "concurrently \"nodemon server\" \"npm run start --prefix client\"",
     "create-database": "psql postgres -f database/schema.sql"
   },
@@ -24,6 +24,7 @@
     "axios": "^0.26.1",
     "concurrently": "^7.1.0",
     "express": "^4.17.3",
+    "live-server": "^1.2.1",
     "nodemon": "^2.0.15",
     "pg": "^8.7.3"
   }
