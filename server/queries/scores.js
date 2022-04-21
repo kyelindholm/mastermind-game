@@ -7,7 +7,7 @@ const saveScoreQuery = async(scoreObject) => {
 }
 
 const getScoresQuery = async () => {
-  const scores = await client.query(`SELECT * FROM scores LIMIT 5`);
+  const scores = await client.query(`SELECT * FROM scores ORDER BY scores DESC limit 5`);
   return scores;
 }
 

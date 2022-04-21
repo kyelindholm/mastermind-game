@@ -22,7 +22,7 @@ const LoginForm = ({handleLogin, handleCreateAccount, statusMessage, handleUsern
       <input type="password" name="password" onChange={(e) => {setPassword(e.target.value)}} required/>
       <input type="submit" value={displayLogin ? "Login" : "Create Account"} className="loginComponent"/>
       <p>OR</p>
-      <div className="guestSignIn" onClick={() => {handleLogin({username: "Guest"})}}>SIGN-IN AS GUEST</div>
+      <div className="guestSignIn" onClick={() => {handleLogin({username: "Guest"})}}>SIGN IN AS GUEST</div>
   </form>
   )
 }
