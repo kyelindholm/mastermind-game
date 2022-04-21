@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server",
-    "start-dev": "concurrently \"npm start\" \"npm run start --prefix client\"",
+    "start": "concurrently \"node server\" \"npm run start --prefix client\"",
+    "start-dev": "concurrently \"nodemon server\" \"npm run start --prefix client\"",
     "create-database": "psql postgres -f database/schema.sql"
   },
   "repository": {

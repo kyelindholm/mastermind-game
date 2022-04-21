@@ -183,17 +183,30 @@ const App = () => {
     }
   }
 
-  const handleLogin = async (event, loginDetails) => {
+  const handleUsernameError = (event) => {
     event.preventDefault();
-    try {
-      await axios.post('http://localhost:3001/login', loginDetails);
-      localStorage.loggedInUser = loginDetails.username;
-      setUsername(loginDetails.username);
+    setStatusMessage('Error: "Guest" is a reserved term and cannot be a username!');
+  }
+
+  const setLoginConditions = (user) => {
+    setUsername(user);
       setIsLoggedIn(true);
       targetRef.current.focus();
       resetGame();
-    } catch (err) {
-      setStatusMessage(err.response.data);
+  }
+
+  const handleLogin = async (loginDetails, event = null) => {
+    if (event) event.preventDefault();
+    if (loginDetails.username === "Guest") {
+      setLoginConditions('Guest');
+    } else {
+      try {
+        await axios.post('http://localhost:3001/login', loginDetails);
+        localStorage.loggedInUser = loginDetails.username;
+        setLoginConditions(loginDetails.username);
+      } catch (err) {
+        setStatusMessage(err.response.data);
+      }
     }
   }
 
@@ -260,7 +273,7 @@ const App = () => {
         </div>
       </div>
       ) : (
-        <LoginForm handleLogin={handleLogin} handleCreateAccount={handleCreateAccount} statusMessage={statusMessage}/>
+        <LoginForm handleLogin={handleLogin} handleCreateAccount={handleCreateAccount} statusMessage={statusMessage} handleUsernameError={handleUsernameError}/>
       )}
 
     </div>
