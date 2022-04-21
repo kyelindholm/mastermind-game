@@ -111,7 +111,7 @@ hr, label {
 }
 
 .submitGuess {
-  margin-top: 5vh;
+  margin-top: 4vh;
   background-color: #121212;
   color: gainsboro;
   border: 1px solid grey;
@@ -123,6 +123,7 @@ hr, label {
   line-height: 6vh;
   font-size: 2em;
   user-select: none;
+  margin-bottom: 1vh;
 }
 
 .submitGuess:hover {

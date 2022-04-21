@@ -65,16 +65,16 @@ While I wasn't very familiar with the Mastermind game before this project, its r
 ## Preview:
 
 <p align="center">
-  <img src="https://i.imgur.com/nGICCKX.png" alt="Mastermind homepage" />
+  <img src="https://i.imgur.com/FImclCe.png" alt="Mastermind homepage" />
 </p>
 <p align="center">
-  <img src="https://i.imgur.com/EcKmC8u.png" alt="Mastermind homepage" />
+  <img src="https://i.imgur.com/yShkUoL.png" alt="Mastermind easy hint" />
 </p>
 <p align="center">
-  <img src="https://i.imgur.com/yShkUoL.png" alt="Mastermind homepage" />
+  <img src="https://i.imgur.com/tuIjGLP.png" alt="Mastermind hard hint + scoreboard" />
 </p>
 <p align="center">
-  <img src="https://i.imgur.com/tuIjGLP.png" alt="Mastermind homepage" />
+  <img src="https://i.imgur.com/26YrQjR.png" alt="Mastermind submit score" />
 </p>
 
 
