@@ -74,7 +74,7 @@ While I wasn't very familiar with the Mastermind game before this project, its r
   <img src="https://i.imgur.com/tuIjGLP.png" alt="Mastermind hard hint + scoreboard" />
 </p>
 <p align="center">
-  <img src="https://i.imgur.com/26YrQjR.png" alt="Mastermind submit score" />
+  <img src="https://i.imgur.com/fbRjYgh.png" alt="Mastermind submit score" />
 </p>
 
 
