@@ -61,6 +61,8 @@ While I wasn't very familiar with the Mastermind game before this project, its r
 
 - __User Accounts__: While you can opt to play Mastermind as a guest, the user can also choose to create an account to make a name for themselves! When a logged-in user submits their score, it's automatically saved alongside their username (which is used to display scores on the scoreboard for bragging rights). Logins are persistant on the client-side, so no need to log in more than once until you log out! Worried about account security? Worry no more! Our stored passwords are encrypted behind SHA-256 hash functions - even I can't log in to accounts I didn't create!
 
+- __Score History__: Want to monitor your personal Mastermind improvement? Logged-in users can view a history of their past scores in a toggle-able modal, complete with the date the score was achieved and the difficulty it was achieved on!
+
 ## Preview:
 
 Mastermind's account creation doesn't allow accounts with duplicate usernames - "guest" is also a reserved word and cannot be uses as a username!
