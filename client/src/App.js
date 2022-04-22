@@ -114,7 +114,6 @@ const App = () => {
   };
 
   const handleSubmitGuess = () => {
-    console.log(randomSequence);
     setScore((remainingGuesses / initialGuesses) * 100);
     if (difficulty === "easy") {
       if (currentGuess.join("") === randomSequence.join("")) {
