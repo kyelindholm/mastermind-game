@@ -218,3 +218,38 @@ div:focus {
 .logout:hover {
   cursor: pointer;
 }
+
+.showScoreHistory {
+  color: gainsboro;
+  font-weight: bold;
+  width: fit-content;
+  float: right;
+  margin-right: 1vw;
+  text-decoration: underline;
+  user-select: none;
+}
+
+.showScoreHistory:hover {
+  cursor: pointer;
+}
+
+.scoreHistory {
+  color: #121212;
+  background-color: gainsboro;
+  border-radius: 25px;
+  z-index: 10000;
+  position: absolute;
+  left: 37%;
+  top: 37%;
+  height: 26%;
+  width: 26%;
+  overflow-y: scroll;
+}
+
+.scoreHistorDisplay {
+  font-weight: bold;
+}
+
+.scoreHistoryError {
+  margin: 25% 0 25% 0;
+}

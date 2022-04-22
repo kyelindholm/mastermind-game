@@ -11,4 +11,9 @@ const getScoresQuery = async () => {
   return scores;
 }
 
-module.exports = { saveScoreQuery, getScoresQuery };
+const getScoreHistoryQuery = async (username) => {
+  const scoreHistory = await client.query(`SELECT * FROM scores WHERE username='${username}'`);
+  return scoreHistory;
+}
+
+module.exports = { saveScoreQuery, getScoresQuery, getScoreHistoryQuery };

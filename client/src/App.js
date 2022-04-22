@@ -7,6 +7,7 @@ import SubmitScoreForm from "./components/SubmitScoreForm";
 import ScoreBoard from "./components/ScoreBoard";
 import LoginForm from "./components/LoginForm"
 import Logout from "./components/Logout";
+import ScoreHistoryDisplay from "./components/ScoreHistoryDisplay";
 import {
   correctNumberCorrectIdx,
   correctNumberGuess,
@@ -30,6 +31,8 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.loggedInUser));
   const [username, setUsername] = useState(localStorage.loggedInUser);
   const [statusMessage, setStatusMessage] = useState('');
+  const [scoreHistory, setScoreHistory] = useState([]);
+  const [toggleScoreHistoryDisplay, setToggleScoreHistoryDisplay] = useState(false);
   const didMountRef = useRef(false);
   const targetRef = useRef(null);
 
@@ -48,6 +51,12 @@ const App = () => {
     const newTopScores = await axios.get("http://localhost:3001/scoreboard");
     newTopScores.data.sort((a, b) => b.score - a.score);
     setTopScores(newTopScores.data);
+  }
+
+  const getScoreHistory = async () => {
+    const newScoreHistory = await axios.get(`http://localhost:3001/scorehistory?username=${username}`);
+    setToggleScoreHistoryDisplay(!toggleScoreHistoryDisplay);
+    setScoreHistory(newScoreHistory.data);
   }
 
   const getRandomNumbers = async () => {
@@ -105,6 +114,7 @@ const App = () => {
   };
 
   const handleSubmitGuess = () => {
+    console.log(randomSequence);
     setScore((remainingGuesses / initialGuesses) * 100);
     if (difficulty === "easy") {
       if (currentGuess.join("") === randomSequence.join("")) {
@@ -189,9 +199,9 @@ const App = () => {
 
   const setLoginConditions = (user) => {
     setUsername(user);
-      setIsLoggedIn(true);
-      targetRef.current.focus();
-      resetGame();
+    setIsLoggedIn(true);
+    targetRef.current.focus();
+    resetGame();
   }
 
   const handleLogin = async (loginDetails, event = null) => {
@@ -275,7 +285,8 @@ const App = () => {
       ) : (
         <LoginForm handleLogin={handleLogin} handleCreateAccount={handleCreateAccount} statusMessage={statusMessage} handleUsernameError={handleUsernameError}/>
       )}
-
+      <ScoreHistoryDisplay scoreHistory={scoreHistory} isVisible={toggleScoreHistoryDisplay}/>
+      <div className="showScoreHistory" style={isLoggedIn && username !== "Guest" ? {visibility: "visible"} : {visibility: "hidden"}} onClick={getScoreHistory}>{toggleScoreHistoryDisplay ? "HIDE" : "SHOW"} SCORE HISTORY</div>
     </div>
   );
 };
