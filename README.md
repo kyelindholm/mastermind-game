@@ -94,7 +94,7 @@ Want to show off how good you are at Mastermind? Submit your score once you've w
 
 2) Ensure you have PostgreSQL installed on your machine! Create a `config.js` file in the root directory (as shown in the file structure above). This file should export "user", "host", and "password" variables that correspond with your PostgreSQL credentials. The default PostgreSQL user is "postgres" and the host should be "localhost". If you have not set one up, the password should be an empty string. For context, these variables are used in `index.js` within the database directory.
 
-    - To connect to the deployed database and view others' scores, your config.js file should look like:
+    - To connect to the deployed database and view others' scores for a bit more competition (or if you don't feel like installing PostgreSQL), your config.js file should look like:
     ```
     module.exports.host="mastermind-db.cq8styafifva.us-east-1.rds.amazonaws.com";
     module.exports.user="kyelindholm";
