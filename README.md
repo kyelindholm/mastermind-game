@@ -101,6 +101,6 @@ Want to show off how good you are at Mastermind? Submit your score once you've w
     module.exports.password="password123";
     ```
 
-3) Once PostgreSQL is installed and your config file is set up, run `npm run create-database` from the root directory. As the script's name suggests, this executes the `schema.sql` file within the database directory and will automatically create the database and tables needed to run Mastermind.
+3) Assuming you're not using the deployed database, once PostgreSQL is installed and your config file is set up, run `npm run create-database` from the root directory. As the script's name suggests, this executes the `schema.sql` file within the database directory and will automatically create the database and tables needed to run Mastermind.
 
 4) To create a production-ready build run `npm run build` from the root directory. Run `npm run start` and your client and server will start - you should be ready to play Mastermind!
